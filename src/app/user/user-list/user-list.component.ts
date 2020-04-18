@@ -7,7 +7,7 @@ import { UserService } from '../../services/user-service.service'
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  protected userData: any;
+  public userData: any;
   protected initialPage = 1;
   protected currentPage = 1;
   protected items = [];

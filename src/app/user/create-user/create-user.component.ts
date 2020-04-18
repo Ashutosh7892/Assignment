@@ -51,7 +51,7 @@ export class CreateUserComponent implements OnInit {
       console.log("Form data",this.createUserForm.value);
     }
 
-    protected resetForm(){
+    public resetForm(){
       this.submitted = false;
       this.createUserForm.reset();
     }
