@@ -15,28 +15,4 @@ describe('UserService', () => {
     
     expect(userService).toBeTruthy();
   });
-  // Add tests for getUsers() method
-  describe('getUsers', () => {
-    it('should return a collection of users', () => {
-      const userResponse = [
-        {
-          first_name: 'Ashu',
-          last_name: 'Ashu',
-          email: 'ashu@test.com'
-        },
-        {
-          first_name: 'Ashu',
-          last_name: 'Ashu',
-          email: 'ashu@test.com'
-        }
-      ];
-      let response;
-
-      userService.getUsers(1).subscribe(res => {
-        response = res;
-      });
-
-      expect(response).toEqual(userResponse);
-    });
-  });
 });
