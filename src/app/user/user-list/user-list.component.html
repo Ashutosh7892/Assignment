@@ -1,0 +1,35 @@
+<div class="tableContainer" *ngIf="!loading">
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userData.data">
+        <td>{{user.first_name}}</td>
+        <td>{{user.last_name}}</td>
+        <td>@{{user.email}}</td>
+      </tr>     
+    </tbody>
+  </table>
+  <ul  class="pagination">
+    <li [ngClass]="{disabled:currentPage === 1}" class="page-item first-item">
+        <a (click)="setPage(1)" class="page-link">First</a>
+    </li>
+    <li [ngClass]="{disabled:currentPage === 1}" class="page-item previous-item">
+        <a (click)="setPage(currentPage - 1)" class="page-link">Previous</a>
+    </li>
+    <li *ngFor="let item of items" [ngClass]="{active:currentPage === item.id}" class="page-item number-item">
+        <a (click)="setPage(item.id)" class="page-link">{{item.id}}</a>
+    </li>
+    <li [ngClass]="{disabled:currentPage === userData.total_pages}" class="page-item next-item">
+        <a (click)="setPage(currentPage + 1)" class="page-link">Next</a>
+    </li>
+    <li [ngClass]="{disabled:currentPage === userData.total_pages}" class="page-item last-item">
+        <a (click)="setPage(userData.total_pages)" class="page-link">Last</a>
+    </li>
+  </ul>
+  </div>

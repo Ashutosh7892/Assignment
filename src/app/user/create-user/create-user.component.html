@@ -1,0 +1,36 @@
+<h3 class="text-center">Create User</h3>
+<form [formGroup]="createUserForm"  class="createUserForm">
+    <div class="form-group">
+        <label for="first_name">First Name</label>
+        <input formControlName="first_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }" />
+        <div *ngIf="f.first_name.errors" class="invalid-feedback">
+            <div *ngIf="f.first_name.errors.required">First Name is required</div>
+            <div *ngIf="f.first_name.errors.pattern">First Name is invalid</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="last_name">Last Name</label>
+        <input type="text" formControlName="last_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }" />
+        <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
+            <div *ngIf="f.last_name.errors.required">Last Name is required</div>
+            <div *ngIf="f.last_name.errors.pattern">Last Name is invalid</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+            <div *ngIf="f.email.errors.pattern">Email is invalid</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button (click)="onSubmit()" class="btn btn-primary">
+            Create User
+        </button>
+        <button (click)="resetForm()" class="btn btn-primary">
+            Reset
+        </button>
+    </div>
+    <div class="text-success text-center" *ngIf="userSaved">User Successfully Created</div>
+</form>
