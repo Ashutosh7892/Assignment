@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models/user.model';
-import { UserService } from '../../services/user-service.service'
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-create-user',
@@ -10,9 +10,9 @@ import { UserService } from '../../services/user-service.service'
 })
 export class CreateUserComponent implements OnInit {
   createUserForm: FormGroup;
-    protected submitted = false;
+    public submitted = false;
     private userData =  User;
-    protected userSaved = false;
+    public userSaved = false;
     constructor(
         private formBuilder: FormBuilder,
         private userService: UserService
@@ -27,7 +27,9 @@ export class CreateUserComponent implements OnInit {
         });
     }
     
-    get f() { return this.createUserForm.controls; }
+    get f() { 
+      return this.createUserForm.controls;
+    }
 
     onSubmit() {
       this.submitted = true;

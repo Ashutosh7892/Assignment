@@ -1,18 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { CreateUserComponent } from './create-user.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { UserService } from '../../services/user-service.service';
-import { Observable } from 'rxjs';
-import { FormBuilder} from '@angular/forms';
+import { UserService } from '../../services/user.service';
 import { By } from '@angular/platform-browser';
 
-let component: CreateUserComponent;
-
-let fixture: ComponentFixture<CreateUserComponent>;
-let service: UserService;
-let formBuilder: FormBuilder
 describe('CreateUserComponent', () => {
+  let component: CreateUserComponent;
+  let fixture: ComponentFixture<CreateUserComponent>;
+  let userService: UserService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -21,37 +17,36 @@ describe('CreateUserComponent', () => {
     })
     .compileComponents();
   }));
-
+  
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    fixture = TestBed.createComponent(CreateUserComponent);
+    component = fixture.componentInstance;
+    userService = TestBed.get(UserService);
+    //spy  = spyOn(userService, 'createUser').and.returnValue(null);
+    fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-  beforeEach(()=>{
-    service = new UserService(null);
-    component = new CreateUserComponent(formBuilder,service);
-  })
-  it('should save user details when form is submitted', () => {
-    const spy = spyOn(service, 'createUser').and.returnValue(null);
+  it('should', fakeAsync( () => {
+      fixture.detectChanges();
+      const spy = spyOn(userService, 'createUser').and.callThrough();
+      let btn = fixture.debugElement.query(By.css('#save'));
+      btn.triggerEventHandler('click', null);
+      fixture.detectChanges();
+      expect(spy).toBe(true);
+      //expect(spy.calls.any()).toBe(true, 'userService.createuser called');
+  }));
+  it('Form should reset',()=>{
+    spyOn(component, 'resetForm');
 
-    const form = fixture.debugElement.query(By.css('form'));
-    form.triggerEventHandler('submit', null);
-
-    const button = fixture.debugElement.query(By.css('#save'));
-    button.nativeElement.click();
-
-    expect(spy).toHaveBeenCalled();
-  });
-
-  it('Form should be empty',()=>{
-
-    component.resetForm();
-    expect(component.createUserForm.value).toHaveBeenCalled();
+    let button = fixture.debugElement.query(By.css('#reset')); 
+    button.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    expect(component.createUserForm.value.first_name).toBe('');
   })
   
 });
+
 

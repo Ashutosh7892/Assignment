@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user-service.service'
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -11,7 +11,7 @@ export class UserListComponent implements OnInit {
   protected initialPage = 1;
   protected currentPage = 1;
   protected items = [];
-  protected loading =  true;
+  protected loading = true;
   constructor(
     private userService: UserService
   ) { }
@@ -19,21 +19,21 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.userService.getUsers(this.initialPage).subscribe(
-      result=>{
+      result => {
         this.userData = result;
-        this.items = Array(this.userData.total_pages).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`}));
+        this.items = Array(this.userData.total_pages).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}` }));
         this.loading = false;
-      },error=>{
+      }, error => {
         this.loading = false;
       }
-    )    
+    )
   }
 
-  private getUserList(pageNumber){
+  private getUserList(pageNumber) {
     this.userService.getUsers(pageNumber).subscribe(
-      result=>{
+      result => {
         this.userData = result;
-      },error=>{
+      }, error => {
 
       }
     )

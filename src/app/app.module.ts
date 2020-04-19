@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
 import { UserListComponent } from './user/user-list/user-list.component';
-import { UserService } from '../app/services/user-service.service'
+import { UserService } from '../app/services/user.service'
 
 @NgModule({
   declarations: [
