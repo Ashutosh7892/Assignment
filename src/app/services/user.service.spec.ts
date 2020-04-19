@@ -4,6 +4,10 @@ import { UserService } from './user.service';
 import { of } from 'rxjs';
 
 describe('UserService', () => {
+  
+  let httpClientSpy: { get: jasmine.Spy,post: jasmine.Spy };
+  let userService: UserService;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -11,10 +15,8 @@ describe('UserService', () => {
       ],
     }).compileComponents();
   });
-  let httpClientSpy: { get: jasmine.Spy,post: jasmine.Spy };
-  let userService: UserService;
+  
   beforeEach(() => {
-    // TODO: spy on other methods too
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get','post']);
     userService = new UserService(<any> httpClientSpy);
   });
@@ -43,10 +45,8 @@ describe('UserService', () => {
     httpClientSpy.get.and.returnValue(of(expectedUsers));
   
     userService.getUsers(1).subscribe(
-      users => expect(users).toEqual(expectedUsers, 'expected users'),
-      fail
+      users => expect(users).toEqual(expectedUsers)
     );
-    expect(httpClientSpy.get.calls.count()).toBe(1, 'one call');
   });
 
 
@@ -62,9 +62,7 @@ describe('UserService', () => {
     httpClientSpy.post.and.returnValue(of(user));
   
     userService.createUser(user).subscribe(
-      users => expect(userService.createUser).toHaveBeenCalled(),
-      fail
+      users => expect(users).toEqual(user)
     );
-    expect(httpClientSpy.post.calls.count()).toBe(1, 'one call');
   });
 });

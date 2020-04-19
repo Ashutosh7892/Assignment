@@ -36,7 +36,7 @@ export class UserService {
     .pipe(
       tap((userAdded) => this.log(`User Added`)),
       catchError(this.handeError("Create User Error"))
-    );
+    )as Observable<User>
   }
 
   /**

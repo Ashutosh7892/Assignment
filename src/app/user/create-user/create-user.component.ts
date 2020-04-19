@@ -13,6 +13,7 @@ export class CreateUserComponent implements OnInit {
     public submitted = false;
     private userData =  User;
     public userSaved = false;
+    public showMessage = false;
     constructor(
         private formBuilder: FormBuilder,
         private userService: UserService
@@ -40,10 +41,11 @@ export class CreateUserComponent implements OnInit {
       this.userService.createUser(this.createUserForm.value).subscribe(
         result=>{
           this.userSaved = true;
+          this.showMessage = true;
           this.submitted = false;
           this.createUserForm.reset();          
           setTimeout(() => {
-            this.userSaved = false;
+            this.showMessage = false;
           }, 3000);
 
         },error=>{

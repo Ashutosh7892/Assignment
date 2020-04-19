@@ -38,12 +38,6 @@ export class UserListComponent implements OnInit {
       }
     )
   }
-  ngOnChanges(changes) {
-    // reset page if items array has changed
-    if (changes.items.currentValue !== changes.items.previousValue) {
-      this.setPage(this.initialPage);
-    }
-  }
 
   private setPage(page: number) {
     this.currentPage = page;
